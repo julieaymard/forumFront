@@ -5,6 +5,7 @@ import {User} from "./user";
 export class Topic {
   user?: User;
   name: string;
+  id: number;
 
-  topic?: Topic;
+
 }

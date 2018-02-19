@@ -21,7 +21,6 @@ export class DataService{
 
   createUser(user: User) {
     let url = ('http://localhost:8080/forum/api/users')
-    // dto = data transfer object : aux petits oignons pour Jax B
     let dto = {
       name: user.name,
       id: user.id
@@ -35,24 +34,36 @@ export class DataService{
     //.catch (e => console.error('Fail :(', e));
 
   }
-  fetchTopics(): Promise<Topic[]> {
 
-    return this.http
-      .get('http://localhost:8080/forum/api/topics')
-      .toPromise()
-      .then(data => data as Topic[])
+  // fetchTopics(): Promise<Topic[]> {
+  //
+  //   return this.http
+  //     .get('http://localhost:8080/forum/api/topics')
+  //     .toPromise()
+  //     .then(data => data as Topic[])
+  //
+  //
+  // }
 
-
-  }
   fetchUserWithTopics(user: User): Promise<User> {
-    let url = ('http://localhost:8080/forum/api/users/' + user.id)
+  let url = ('http://localhost:8080/forum/api/users/' + user.id)
+  return this.http
+    .get(url)
+    .toPromise()
+    .then(data => {
+      console.log('user with topics:', data);
+      return data as User
+    })
+}
+
+  fetchTopicsWithComments(topic: Topic): Promise<Topic> {
+    let url = ('http://localhost:8080/forum/api/topics/' + topic.id)
     return this.http
       .get(url)
       .toPromise()
       .then(data => {
-        console.log('user with topics:', data);
-        return data as User
+        console.log('topics with comments:', data);
+        return data as Topic
       })
   }
-
 }

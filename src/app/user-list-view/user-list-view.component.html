@@ -1,54 +1,46 @@
 <html>
-<form>
+<!--<form>-->
 
-  User :
-  <select [(ngModel)]="formModel.level" name="level">
-    <option *ngFor = "let user of users;"> {{user.name}}</option>
-  </select>
-<br/>
-<br/>
- <strong>Welcome {{formModel.level}} !! </strong>
-</form>
-<br/>
-------
-<div>
+  <!--User :-->
+  <!--<select [(ngModel)]="selectedUser" name="level">-->
+    <!--<option *ngFor = "let user of users"> {{user.name}}</option>-->
+  <!--</select>-->
+
+ <!--<strong>Welcome {{selectedUser}} !! </strong>-->
+<!--</form>-->
+<!--<br/>-->
+<!--&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+<div id="users">
+  <h3> Users</h3>
   <ul>
     <li *ngFor="let user of users">
-      <a href="#{{user.id}}" (click)="details(user)">{{user.name}}</a>
-
+      <a href="#{{user.id}}" (click)="detailsU(user)">{{user.name}}</a>
 
   </ul>
+  <input type="text" name="userName" placeholder="add a new user"  [(ngModel)]="createdUser.name">
+  <button (click)="createUser()" [disabled]="createdUser.name?.length<2" > Add!</button>
 
 </div>
 
-<!--<input type="text" name="userName" placeholder="add a new user"  [(ngModel)]="createdUser.name">-->
-<!--<button (click)="createUser()" [disabled]="createdUser.name?.length<2" > Add!</button>-->
 
 
 
-
-<div *ngIf="selectedUser">
+<div id="topics" *ngIf="selectedUser">
 <h3> User's topics : {{selectedUser.name}} </h3>
-<ol>
-<li *ngFor="let topic of selectedUser.topics"> {{topic.name}}
-</ol>
+<ul>
+  <li *ngFor="let topic of selectedUser.topics">
+  <a href="#{{topic.id}}" (click)="detailsT(topic)">{{topic.name}}</a>
+</ul>
 
-<!--<br>-->
-  <!--<h3>Create new topic : {{selectedUser.name}}</h3>-->
-<!--&lt;!&ndash;<form>&ndash;&gt;-->
-<!--&lt;!&ndash;<input type="text" name="topicName" placeholder="create a new topic">&ndash;&gt;-->
-<!--&lt;!&ndash;[(ngModel)]="createdTopic.name" (click)="createdTopic.name =''"&ndash;&gt;-->
-<!--&lt;!&ndash;<button (click)="createTopic()" [disabled]="createdTopic?.name.length<2"> Submit!</button>&ndash;&gt;-->
-<!--&lt;!&ndash;<br/>&ndash;&gt;-->
-<!--&lt;!&ndash;</form>&ndash;&gt;-->
 </div>
 
-<!--<div *ngIf="selectedTopic">-->
-  <!--<h3> User's topics : {{selectedTopic.name}} </h3>-->
-  <!--<ol>-->
-    <!--<li *ngFor="let comment of selectedTopic.comments"> {{comment.name}}-->
-  <!--</ol>-->
-<!--<br/>-->
-<!--</div>-->
+<div id="comments" *ngIf="selectedTopic">
+  <h3> {{selectedTopic.name}}'s comments </h3>
+  <ol>
+      <li *ngFor="let comment of selectedTopic.comments"> {{comment.content}}
+  </ol>
+<br/>
+</div>
 </html>
 

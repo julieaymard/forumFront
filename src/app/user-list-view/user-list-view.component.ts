@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../model/user";
 import {DataService} from "../data-service.service";
 import {Topic} from "../model/topic";
@@ -13,14 +13,9 @@ export class UserListViewComponent implements OnInit {
 
   users: User[];
   selectedUser: User;
-  createdTopic : Topic = new Topic();
-  // createdUser : User = new User();
+  createdTopic: Topic = new Topic();
+  createdUser : User = new User();
   selectedTopic: Topic;
-  formModel = {
-    name :'',
-    limit:1000,
-    level: 'Kenza'
-  };
 
 
 
@@ -33,11 +28,12 @@ export class UserListViewComponent implements OnInit {
   ngOnInit() {
   }
 
-  details(user: User) {
+  detailsU(user: User) {
     this.selectedUser = user;
-    this.createdTopic = new Topic();
-    this.createdTopic.user = user;
-    this.createdTopic.name = user.name+"'s topic"
+    this.selectedTopic = null;
+    // this.createdTopic = new Topic();
+    // this.createdTopic.user = user;
+    // this.createdTopic.name = user.name + "'s topic"
 
     console.log('You selected', user);
 
@@ -45,9 +41,27 @@ export class UserListViewComponent implements OnInit {
       .fetchUserWithTopics(user)
       .then(fullUser => this.selectedUser = fullUser)
       .then(console.log);
+  }
+
+  detailsT(topic: Topic) {
+    this.selectedTopic = topic;
+    // this.createdTopic = new Topic();
+    // this.createdTopic.user = user;
+    // this.createdTopic.name = user.name + "'s topic"
+
+    console.log('You selected', topic);
+
+    this.dataService
+      .fetchTopicsWithComments(topic)
+      .then(fullTopic => this.selectedTopic = fullTopic)
+      .then(console.log);
 
   }
 
-
+  createUser(){
+    this.dataService.createUser(this.createdUser)
+      .then ( ()=> this.users.push(Object.assign({}, this.createdUser)))
+      .catch(e=> alert(e.message));
+  }
 
 }
