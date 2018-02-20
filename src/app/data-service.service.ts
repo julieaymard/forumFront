@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "./model/user";
 import {Topic} from "./model/topic";
+import {Comment} from "./model/comment";
 
 
 @Injectable()
@@ -30,7 +31,8 @@ export class DataService{
 
     return this.http.post(url, dto)
       .toPromise()
-      .then(data => console.log('Success :)', data))
+      //.then((data) => console.log('Success :)', data))
+      .then((data) => {console.log('Success :)', data); return data})
     //.catch (e => console.error('Fail :(', e));
 
   }
@@ -39,10 +41,30 @@ export class DataService{
     let url = ('http://localhost:8080/forum/api/topics')
     let dto = {
       name: topic.name,
-     user: topic.user
+      user: topic.user
     };
 
     console.log('sending topic:', dto);
+
+    return this.http.post(url, dto)
+      .toPromise()
+      .then((data) => {
+        console.log('Success :)', data);
+        return data;
+      });
+      //.then(data => {console.log('Success :)', data); return data})
+    //.catch (e => console.error('Fail :(', e));
+
+  }
+
+  createComment(comment:Comment) {
+    let url = ('http://localhost:8080/forum/api/comments')
+    let dto = {
+      content: comment.content,
+
+        };
+
+    console.log('sending comment:', dto);
 
     return this.http.post(url, dto)
       .toPromise()
@@ -57,6 +79,14 @@ export class DataService{
       .get('http://localhost:8080/forum/api/topics')
       .toPromise()
       .then(data => data as Topic[])
+  }
+
+  fetchComments(): Promise<Comment[]> {
+
+    return this.http
+      .get('http://localhost:8080/forum/api/comments')
+      .toPromise()
+      .then(data => data as Comment[])
   }
 
   fetchUserWithTopics(user: User): Promise<User> {

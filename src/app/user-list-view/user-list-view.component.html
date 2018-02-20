@@ -1,4 +1,5 @@
 <html>
+
 <!--<form>-->
 
 <!--User :-->
@@ -41,19 +42,22 @@
       <li *ngFor="let topic of selectedUser.topics">
         <a href="#{{topic.id}}" (click)="detailsT(topic)">{{topic.name}}</a>
     </ul>
-    <input type="text" name="topicName" placeholder="add a new topic" [(ngModel)]="createdTopic.name"
-           (click)="createdTopic.name=''">
-    <button (click)="createTopic()" [disabled]="createdTopic.name?.length<2"> Add!</button>
+
   </div>
+  <input type="text" name="topicName" placeholder="add a new topic" [(ngModel)]="createdTopic.name"
+         (click)="createdTopic.name=''">
+  <button (click)="createTopic()" [disabled]="createdTopic.name?.length<2"> Add!</button> <br>
 
 
-  <div id="comments" *ngIf="selectedTopic">
+  <div id="comments"  *ngIf="selectedTopic">
     <h3> {{selectedTopic.name}}'s comments </h3>
-    <ol>
+    <ol >
       <li *ngFor="let comment of selectedTopic.comments"> {{comment.content}}
     </ol>
-    <br/>
   </div>
+  <input type="text" name="commentName" placeholder="add a new comment" [(ngModel)]="createdComment.content"
+         (click)="createdComment.content=''">
+  <button (click)="createComment()" [disabled]="createdComment.content?.length<2"> Add!</button>
 </div>
 
 
