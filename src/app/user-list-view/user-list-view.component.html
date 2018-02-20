@@ -27,13 +27,15 @@
 
 
 <div id="topics" *ngIf="selectedUser">
-<h3> User's topics : {{selectedUser.name}} </h3>
+<h3>{{selectedUser.name}}'s topics </h3>
 <ul>
   <li *ngFor="let topic of selectedUser.topics">
   <a href="#{{topic.id}}" (click)="detailsT(topic)">{{topic.name}}</a>
 </ul>
-
+  <input type="text" name="topicName" placeholder="add a new topic" [(ngModel)]="createdTopic.name" (click)="createdTopic.name=''">
+  <button (click)="createTopic()" [disabled]="createdTopic.name?.length<2" > Add!</button>
 </div>
+
 
 <div id="comments" *ngIf="selectedTopic">
   <h3> {{selectedTopic.name}}'s comments </h3>

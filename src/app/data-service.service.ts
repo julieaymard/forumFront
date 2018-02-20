@@ -35,15 +35,29 @@ export class DataService{
 
   }
 
-  // fetchTopics(): Promise<Topic[]> {
-  //
-  //   return this.http
-  //     .get('http://localhost:8080/forum/api/topics')
-  //     .toPromise()
-  //     .then(data => data as Topic[])
-  //
-  //
-  // }
+  createTopic(topic: Topic) {
+    let url = ('http://localhost:8080/forum/api/topics')
+    let dto = {
+      name: topic.name,
+     user: topic.user
+    };
+
+    console.log('sending topic:', dto);
+
+    return this.http.post(url, dto)
+      .toPromise()
+      .then(data => console.log('Success :)', data))
+    //.catch (e => console.error('Fail :(', e));
+
+  }
+
+  fetchTopics(): Promise<Topic[]> {
+
+    return this.http
+      .get('http://localhost:8080/forum/api/topics')
+      .toPromise()
+      .then(data => data as Topic[])
+  }
 
   fetchUserWithTopics(user: User): Promise<User> {
   let url = ('http://localhost:8080/forum/api/users/' + user.id)

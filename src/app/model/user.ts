@@ -1,3 +1,4 @@
+import {Topic} from "./topic";
 /**
  * Created by AELION on 16/02/2018.
  */
@@ -8,6 +9,6 @@ export class User{
   id: number;
 
 //protip : always better to initiate an empty array
-  //wallets : Wallet[]=[]
+  topics : Topic[]=[]
 
 }
