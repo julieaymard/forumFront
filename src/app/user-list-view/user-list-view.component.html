@@ -1,48 +1,60 @@
 <html>
 <!--<form>-->
 
-  <!--User :-->
-  <!--<select [(ngModel)]="selectedUser" name="level">-->
-    <!--<option *ngFor = "let user of users"> {{user.name}}</option>-->
-  <!--</select>-->
+<!--User :-->
+<!--<select [(ngModel)]="selectedUser" name="level">-->
+<!--<option *ngFor = "let user of users"> {{user.name}}</option>-->
+<!--</select>-->
 
- <!--<strong>Welcome {{selectedUser}} !! </strong>-->
+<!--<strong>Welcome {{selectedUser}} !! </strong>-->
 <!--</form>-->
 <!--<br/>-->
 <!--&#45;&#45;&#45;&#45;&#45;&#45;-->
-
-<div id="users">
-  <h3> Users</h3>
-  <ul>
-    <li *ngFor="let user of users">
-      <a href="#{{user.id}}" (click)="detailsU(user)">{{user.name}}</a>
-
-  </ul>
-  <input type="text" name="userName" placeholder="add a new user"  [(ngModel)]="createdUser.name">
-  <button (click)="createUser()" [disabled]="createdUser.name?.length<2" > Add!</button>
-
+<div id="main">
+  <div id="menu">
+    <br>
+    <h3>All Topics</h3>
+    <ul>
+    <li *ngFor="let topic of topics">
+      <a href="#{{topic.id}}" (click)="detailsT(topic)">{{topic.name}}</a>
+    </ul>
+  </div>
 </div>
 
+<div id="content">
+  <div id="users">
+    <br>
+    <h3> Users</h3>
+    <ul>
+      <li *ngFor="let user of users">
+        <a href="#{{user.id}}" (click)="detailsU(user)">{{user.name}}</a>
+    </ul>
+    <input type="text" name="userName" placeholder="add a new user" [(ngModel)]="createdUser.name">
+    <button (click)="createUser()" [disabled]="createdUser.name?.length<2"> Add!</button>
+
+  </div>
 
 
+  <div id="topics" *ngIf="selectedUser">
+    <h3>{{selectedUser.name}}'s topics </h3>
+    <ul>
+      <li *ngFor="let topic of selectedUser.topics">
+        <a href="#{{topic.id}}" (click)="detailsT(topic)">{{topic.name}}</a>
+    </ul>
+    <input type="text" name="topicName" placeholder="add a new topic" [(ngModel)]="createdTopic.name"
+           (click)="createdTopic.name=''">
+    <button (click)="createTopic()" [disabled]="createdTopic.name?.length<2"> Add!</button>
+  </div>
 
-<div id="topics" *ngIf="selectedUser">
-<h3>{{selectedUser.name}}'s topics </h3>
-<ul>
-  <li *ngFor="let topic of selectedUser.topics">
-  <a href="#{{topic.id}}" (click)="detailsT(topic)">{{topic.name}}</a>
-</ul>
-  <input type="text" name="topicName" placeholder="add a new topic" [(ngModel)]="createdTopic.name" (click)="createdTopic.name=''">
-  <button (click)="createTopic()" [disabled]="createdTopic.name?.length<2" > Add!</button>
-</div>
 
-
-<div id="comments" *ngIf="selectedTopic">
-  <h3> {{selectedTopic.name}}'s comments </h3>
-  <ol>
+  <div id="comments" *ngIf="selectedTopic">
+    <h3> {{selectedTopic.name}}'s comments </h3>
+    <ol>
       <li *ngFor="let comment of selectedTopic.comments"> {{comment.content}}
-  </ol>
-<br/>
+    </ol>
+    <br/>
+  </div>
 </div>
-</html>
 
+
+</html>

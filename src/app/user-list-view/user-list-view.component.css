@@ -46,3 +46,17 @@ button {
 button:hover {
   background-color: antiquewhite;
 }
+
+#main{
+  float : right;
+  width : 240px;
+  height: 600px;
+  background-color: antiquewhite;
+  text-align: center;
+  list-style:  none;
+}
+
+
+#content{
+  margin-right: 245px;
+}
